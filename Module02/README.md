@@ -43,7 +43,11 @@ Write the **requirements the schema forgot**: the business rules nobody encoded.
 <a id="task-a"></a>
 ## Pod study (Tasks A–C)
 
-See [study-log.md](study-log.md) _(to do with my pod)_.
+**Proves:** [LG1](#lg1), [LG3](#lg3)
+
+See [study-log.md](study-log.md): the four Task B sketches with a `CREATE TABLE` + `COUNT` proof,
+LLM answers each verified against `legacy.db`, and remarkable findings.
+_(Still to add: my references, what I googled, my two best found ER sketches, and the agreed learning from the pod pairing.)_
 
 <a id="task-1"></a>
 ## Task 1 — Reconstruct the ER model
