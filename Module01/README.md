@@ -95,7 +95,7 @@ What our jigsaw found that the instructor's table missed:
 - Repository created from [iotempire/iot-portfolio-template](https://github.com/iotempire/iot-portfolio-template) with **Use this template** (not a fork), so it starts with one clean commit and no upstream link.
 - Cloned with `gh repo clone`, signed in over HTTPS with `gh auth login` (no SSH keys).
 - The template had **no `.gitignore`**, so I added one: [`.gitignore`](../.gitignore). Besides the required entries, it also ignores SQLite's `-wal`/`-shm` side files and `*.sqlite`/`*.sqlite3`.
-- Instructor added as collaborator: <yes / pending>
+- Instructor [@ulno](https://github.com/ulno) invited as collaborator (write access) on 2026-10-28.
 
 <a id="task-2"></a>
 ## Task 2 — Git & Markdown
