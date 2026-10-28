@@ -25,6 +25,8 @@ My personal profile and expectations are [here](Module01/README.md#task-personal
 
 - [Module 1: Introduction and Local-First](Module01/README.md),
   [Reflection 1](Reflections/ref01.md)
+- [Module 2: Data Contracts & Reading Legacy Schemas](Module02/README.md),
+  [Reflection 2](Reflections/ref02.md)
 - ...
 
 ## Running the code
