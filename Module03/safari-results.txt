@@ -1,0 +1,35 @@
+﻿== BEFORE the index
+-- Q1
+QUERY PLAN
+`--SCAN maint_job
+-- Q2
+QUERY PLAN
+`--SCAN machine
+-- Q3
+QUERY PLAN
+`--SCAN maint_job
+
+== AFTER CREATE INDEX ix_job_tech ON maint_job(technician)
+-- Q1
+QUERY PLAN
+`--SEARCH maint_job USING INDEX ix_job_tech (technician=?)
+-- Q2
+QUERY PLAN
+`--SCAN machine
+-- Q3
+QUERY PLAN
+`--SCAN maint_job
+
+== BREAK IT: WHEREs that defeat the index
+-- function around the column
+QUERY PLAN
+`--SCAN maint_job
+-- prefix LIKE without wildcard at the start (LIKE is case-insensitive, so still no index)
+QUERY PLAN
+`--SCAN maint_job
+-- the same prefix with GLOB (case-sensitive) can use the index
+QUERY PLAN
+`--SEARCH maint_job USING INDEX ix_job_tech (technician>? AND technician<?)
+-- only the indexed column is needed: covering index
+QUERY PLAN
+`--SEARCH maint_job USING COVERING INDEX ix_job_tech (technician=?)
