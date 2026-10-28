@@ -14,6 +14,9 @@
 __pycache__/
 *.pyc
 
+# generated data (rebuild with Module01/generate_telemetry.py)
+Module01/telemetry.csv
+
 # editor / OS clutter
 .DS_Store
 Thumbs.db
