@@ -1,0 +1,44 @@
+﻿== Defect 1: orphan maintenance jobs (machine_name not in machine)
+job_id  machine_name
+------  ------------
+     3  cnc-05
+Run Time: real 0.000957 user 0.000000 sys 0.000000
+
+== Defect 2: duplicate natural keys in part
+part_no  copies
+-------  ------
+P-1003        2
+Run Time: real 0.000155 user 0.000000 sys 0.000000
+
+== Defect 3: unit_price stored as text - a numeric comparison fails silently
+part_no  unit_price
+-------  ----------
+P-1001   12.50
+Run Time: real 0.000101 user 0.000000 sys 0.000000
+-- the same question asked numerically:
+part_no  unit_price
+-------  ----------
+P-1001   12.50
+P-1003   9.90
+P-1003   9.90
+Run Time: real 0.000108 user 0.000000 sys 0.000000
+
+== Defect 4: installed dates that are not dates
+machine_name  installed
+------------  ---------
+RANDOM-NAME   unknown
+Run Time: real 0.000101 user 0.000000 sys 0.000000
+
+== Defect 5: the m:n list only joins when it holds exactly one part
+job_id     description
+------  -----------------
+     2  Coolant filter
+     2  Coolant filter
+     3  Ball bearing 6203
+Run Time: real 0.000163 user 0.000000 sys 0.000000
+-- jobs that silently disappeared from that join:
+job_id   parts_used
+------  -------------
+     1  P-1001,P-1002
+     4
+Run Time: real 0.000581 user 0.000000 sys 0.000000
