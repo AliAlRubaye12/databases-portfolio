@@ -1,0 +1,43 @@
+﻿== 1. RUN the LLM's query
+  city     customers   revenue
+---------  ---------  ----------
+Bielefeld        500  11242176.0
+Gütersloh        500   8422344.0
+Münster          500   5493504.0
+Paderborn        500   2815656.0
+Run Time: real 0.274401 user 0.250000 sys 0.015625
+
+== 2. PLAN of the LLM's query
+QUERY PLAN
+|--SCAN ol
+|--SEARCH o USING INTEGER PRIMARY KEY (rowid=?)
+|--SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+|--SEARCH p USING INTEGER PRIMARY KEY (rowid=?)
+|--USE TEMP B-TREE FOR GROUP BY
+|--USE TEMP B-TREE FOR count(DISTINCT)
+`--USE TEMP B-TREE FOR ORDER BY
+
+== 3. PLAN of the workbook reference query (date range instead of strftime)
+QUERY PLAN
+|--SCAN ol
+|--SEARCH o USING INTEGER PRIMARY KEY (rowid=?)
+|--SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+|--SEARCH p USING INTEGER PRIMARY KEY (rowid=?)
+|--USE TEMP B-TREE FOR GROUP BY
+|--USE TEMP B-TREE FOR count(DISTINCT)
+`--USE TEMP B-TREE FOR ORDER BY
+
+== 4. CORRECTNESS: rows that differ between LLM and reference (empty = same answer)
+
+== 5. EDGE CASES
+-- why DISTINCT matters: customer rows counted without it
+  city     without_distinct  with_distinct
+---------  ----------------  -------------
+Bielefeld             40908            500
+Gütersloh             40464            500
+Münster               40464            500
+Paderborn             40464            500
+-- customers with no 2025 orders (an inner join silently drops them)
+customers_without_2025_orders
+-----------------------------
+                            0
