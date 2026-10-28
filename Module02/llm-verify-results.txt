@@ -1,0 +1,32 @@
+﻿== Q3 natural vs surrogate key: what if machine_name is the key and a machine is renamed?
+-- orphan jobs before the rename:
+orphan_jobs
+-----------
+          1
+-- orphan jobs after renaming cnc-01 (rolled back afterwards):
+orphan_jobs
+-----------
+          3
+
+== Q4 comma list breaks 1NF: can SQL answer which jobs used P-1002?
+-- equality on the list misses it:
+-- LIKE finds it:
+job_id   parts_used
+------  -------------
+     1  P-1001,P-1002
+-- ...but the same pattern would also match a future part P-10021 (simulated, rolled back):
+job_id   parts_used
+------  -------------
+     1  P-1001,P-1002
+     5  P-10021
+
+== Q5 entity or attribute: is site worth its own table?
+  site     machines
+---------  --------
+Bielefeld         1
+Gütersloh         3
+
+== Q7 foreign keys: does SQLite enforce them by default?
+foreign_keys
+------------
+           0
