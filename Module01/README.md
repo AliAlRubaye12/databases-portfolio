@@ -148,12 +148,12 @@ I kept the drill in a file, [`tour-commands.sql`](tour-commands.sql), and replay
 - [`shell-tour.txt`](shell-tour.txt) — captured session: `.tables`, `.schema`, and a query under `.timer on`
 - [`tour.sql`](tour.sql) — `.dump` of the throwaway `tour.db` (the `.db` itself is ignored by Git)
 
-Most useful dot-command: <your sentence — e.g. `.output`, because …>
+Most useful dot-command: **`.read`** — I can keep all my commands in one file and run them again any time, and it avoids the paste problem completely.
 
 <a id="task-5"></a>
 ## Task 5 — SQL Island
 
-See [sql-island.md](sql-island.md) _(to do: play the game and answer the questions)_.
+I finished the whole game. Answers and screenshots: [sql-island.md](sql-island.md).
 
 <a id="task-6"></a>
 ## Task 6 — Telemetry in SQLite
@@ -176,7 +176,8 @@ See [sql-island.md](sql-island.md) _(to do: play the game and answer the questio
 and every question is answered in about **0.1 s** on a laptop — no server process, no login, no network.
 cnc-02 has the highest peak, which matches the bearing wear the generator simulates.
 
-What would this cost in the cloud, and who pays? <your sentence>
+What would this cost in the cloud, and who pays? A cloud server with a database, a backend, and someone to run it means a bill every month — paid by Wittkamp, the small shop —
+for 10 MB of data that fits on any USB stick. With SQLite it is one file on the computer they already have, and it costs nothing.
 
 <a id="task-7"></a>
 ## Task 7 — First LLM-generated query: run, profile, break
@@ -225,7 +226,11 @@ All checks are in [`llm-query.sql`](llm-query.sql); full output in [`llm-query-r
 With the full 18:00–06:00 window the ranking **changes**: cnc-02 60.21 · cnc-03 60.20 · cnc-01 60.18.
 All averages are within 0.25 of each other, so the ordering is mostly noise, not a real difference between machines.
 
-**What the model got right, what it got wrong, and how I verified it:** <your paragraph, in your own words>
+**What the model got right, what it got wrong, and how I verified it:**
+The model got the SQL right: it ran without errors, used `GROUP BY` and `ORDER BY` correctly, and compared times correctly with `time(ts)`.
+It got the meaning wrong: "overnight" was turned into 18:00 to midnight only, so half the night was missing — and with the full night (18:00–06:00) a different machine came out on top.
+I checked it in three ways: I ran it, I looked at the plan with `EXPLAIN QUERY PLAN` (a full table scan), and I counted how many rows each version of the filter really keeps.
+Lesson: a query that runs is not the same as a query that answers the right question.
 
 ## Reflection 1
 
