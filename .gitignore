@@ -1,0 +1,19 @@
+# local data and secrets stay out of the repository
+.venv/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.duckdb
+*.duckdb.wal
+*.parquet
+.env
+.env.*
+__pycache__/
+*.pyc
+
+# editor / OS clutter
+.DS_Store
+Thumbs.db
