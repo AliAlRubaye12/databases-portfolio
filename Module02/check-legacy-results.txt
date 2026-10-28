@@ -1,0 +1,17 @@
+﻿== Pydantic: machines
+  ok      cnc-01
+  ok      cnc-02
+  ok      cnc-03
+  REJECT  RANDOM-NAME: installed - Input should be a valid date or datetime, input is too short
+== Pydantic: maintenance jobs
+  ok      job 1: parts ['P-1001', 'P-1002']
+  ok      job 2: parts ['P-1003']
+  REJECT  job 3: machine 'cnc-05' has no machine_id (orphan)
+  ok      job 4: parts []
+== Database: parts into the corrected schema
+  ok      P-1001
+  ok      P-1002
+  ok      P-1003
+  REJECT  P-1003: UNIQUE constraint failed: part.part_no
+== Database: a job_part row pointing at a job that does not exist
+  REJECT  job 99: FOREIGN KEY constraint failed
