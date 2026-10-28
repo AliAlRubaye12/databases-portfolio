@@ -1,0 +1,24 @@
+﻿== 1. a SELECT alias used in WHERE (standard SQL rejects this; does SQLite?)
+order_id  double_qty
+--------  ----------
+       4           8
+       8           8
+      12           8
+
+== 2. an aggregate alias used in WHERE (WHERE runs before GROUP BY, so this must fail)
+sqlite3 : Parse error near line 12 of Module03/clause-order.sql: misuse of aggregate: SUM()
+At line:1 char:519
++ ... -portfolio; sqlite3 Module03/warehouse.db ".read Module03/clause-orde ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Parse error nea...ggregate: SUM():String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  SELECT order_id, SUM(qty) AS total FROM order_line WHERE total > 10 GROUP BY o
+                   ^--- error here
+
+== 3. the fix: filter groups in HAVING, which runs after GROUP BY
+order_id  total
+--------  -----
+       3     12
+       4     16
+       7     12
