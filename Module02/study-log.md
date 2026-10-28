@@ -6,7 +6,11 @@ Back to [Module 2](README.md#task-a).
 
 | Source | The one concept I understood best from it |
 |---|---|
-| <your source> | <concept> |
+| [Course workbook, Module 2](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-databases-10d/modules/02-data-contracts-and-legacy-schemas.md) | Find the *real* cardinality by counting distinct values — `COUNT(*)` vs `COUNT(DISTINCT …)` beats any documentation. |
+| [Wikipedia: Entity–relationship model](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) | Entities are nouns, relationships are verbs — and in crow's-foot notation a relationship cannot carry attributes, so it gets promoted to an entity. |
+| [Wikipedia: Surrogate key](https://en.wikipedia.org/wiki/Surrogate_key) | A surrogate key does not replace the natural key: keep the natural key as a `UNIQUE` constraint, or the same real-world thing can be stored twice. |
+| [SQLite: Foreign Key Support](https://sqlite.org/foreignkeys.html) | Foreign keys are off by default for backwards compatibility and must be switched on **per connection**; an index on the child column avoids full scans. |
+| [Mermaid: Entity Relationship Diagrams](https://mermaid.js.org/syntax/entityRelationshipDiagram.html) | The cardinality markers (`\|\|`, `\|o`, `}o`, `}\|`) and the difference between an identifying (`--`) and a non-identifying (`..`) relationship. |
 
 ## Things I googled
 
@@ -34,8 +38,46 @@ Model: Claude (Opus 5.5). Every answer was checked against `legacy.db` with [`ll
 
 ## My two best found ER sketches
 
-1. <source / credit> — <screenshot or redraw> — <what it taught me that the others did not>
-2. <source / credit> — <screenshot or redraw> — <what it taught me>
+### 1. Artist performs Song — when a relationship becomes an entity
+
+Source: [Wikipedia, Entity–relationship model](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model) — figure *"Two related entities shown using Crow's Foot notation"*. My redraw, including the step the article describes in its text:
+
+```mermaid
+erDiagram
+    ARTIST ||--o{ PERFORMANCE : gives
+    SONG ||--o{ PERFORMANCE : "is performed in"
+    PERFORMANCE {
+        int performance_id PK
+        int artist_id FK
+        int song_id FK
+        date performed_on
+        text venue
+    }
+```
+
+**What it taught me that the others did not:** "performs" looks like a plain verb between two nouns, but as soon as it needs a date or a venue it has to become an entity (`PERFORMANCE`), because crow's-foot relationships cannot carry attributes.
+That is exactly the reason `MAINTENANCE_JOB` in my [sketch 4](#4-entity-vs-attribute-vs-relationship--maintenance-job) is an entity and not just a line between machine and technician.
+
+### 2. Property contains Room — an identifying relationship
+
+Source: [Mermaid documentation, Entity Relationship Diagrams](https://mermaid.js.org/syntax/entityRelationshipDiagram.html) — the `PROPERTY ||--|{ ROOM : contains` example. My redraw with keys:
+
+```mermaid
+erDiagram
+    PROPERTY ||--|{ ROOM : contains
+    PROPERTY {
+        int property_id PK
+        text address
+    }
+    ROOM {
+        int property_id PK, FK
+        int room_no PK
+        float area_m2
+    }
+```
+
+**What it taught me that the others did not:** a room cannot exist without its property, so the relationship is *identifying* (solid `--` line) and the parent's key becomes **part of the child's primary key** (`property_id, room_no`) — room 1 exists in every house.
+It also uses `|{` (**one** or more) instead of `o{` (zero or more): a property must have at least one room, which none of my four sketches needed.
 
 ## Task B — From words to sketch
 
