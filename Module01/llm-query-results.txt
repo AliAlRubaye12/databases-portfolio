@@ -1,0 +1,35 @@
+== 1. RUN the generated query as given
+machine  avg_load
+-------  --------
+cnc-03      60.43
+cnc-01      60.37
+cnc-02      60.36
+Run Time: real 0.054918 user 0.031250 sys 0.015625
+
+== 2. PROFILE it
+QUERY PLAN
+|--SCAN readings
+|--USE TEMP B-TREE FOR GROUP BY
+`--USE TEMP B-TREE FOR ORDER BY
+
+== 3a. BREAK it: which hours does each filter actually keep?
+       filter                 first                last            n
+---------------------  -------------------  -------------------  ------
+time(ts) >= 18:00      18:00:00             23:59:57              43200
+overnight 18:00-06:00                                             86400
+ts > 2026-01-05 18:00  2026-01-05 18:00:03  2026-01-07 05:59:57  129597
+sloppy LIKE %18%                                                  18102
+
+== 3b. what the sloppy LIKE matches that it should not
+        ts
+-------------------
+2026-01-05 06:00:18
+2026-01-05 06:00:18
+2026-01-05 06:00:18
+
+== 3c. overnight including after midnight (18:00-06:00)
+machine  avg_load
+-------  --------
+cnc-02      60.21
+cnc-03       60.2
+cnc-01      60.18
