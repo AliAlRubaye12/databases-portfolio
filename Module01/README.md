@@ -97,6 +97,8 @@ What our jigsaw found that the instructor's table missed:
 - The template had **no `.gitignore`**, so I added one: [`.gitignore`](../.gitignore). Besides the required entries, it also ignores SQLite's `-wal`/`-shm` side files and `*.sqlite`/`*.sqlite3`.
 - Instructor [@ulno](https://github.com/ulno) invited as collaborator (write access) on 2026-10-28.
 
+  ![Collaborators page showing the pending invite for Ulrich Norbisrath](pictures/collaborator-invite.png)
+
 <a id="task-2"></a>
 ## Task 2 — Git & Markdown
 
