@@ -1,0 +1,29 @@
+﻿== parts per order (an order has many parts)
+order_id  parts
+--------  -----
+       1      2
+       2      1
+
+== orders per part (a part is in many orders)
+part_no  orders
+-------  ------
+P-1001        2
+P-1002        1
+
+== max on both sides > 1 => m:n
+max_parts_per_order  max_orders_per_part
+-------------------  -------------------
+                  2                    2
+
+== the key enforces a part only once per order - this insert must fail:
+
+== and the foreign key rejects a part that does not exist - this insert must fail:
+sqlite3 : Error near line 41 of Module02/cardinality-proof.sql: UNIQUE constraint failed: work_order_part.order_id, 
+work_order_part.part_no
+At line:1 char:534
++ ... === PROOF"; sqlite3 ":memory:" ".read Module02/cardinality-proof.sql" ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error near line...er_part.part_no:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Error near line 45 of Module02/cardinality-proof.sql: FOREIGN KEY constraint failed
