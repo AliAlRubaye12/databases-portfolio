@@ -1,0 +1,32 @@
+﻿SQLite 3.53.1, median of 5 runs, times in ms
+
+== no index
+  dashboard              181.713 ms   SCAN ol / SEARCH o USING INTEGER PRIMARY KEY (rowid=?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?) / SEARCH p USING INTEGER PRIMARY KEY (rowid=?) / USE TEMP B-TREE FOR GROUP BY / USE TEMP B-TREE FOR count(DISTINCT) / USE TEMP B-TREE FOR ORDER BY
+  single day               4.279 ms   SCAN o / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  single day, date()       9.041 ms   SCAN o / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  one product             15.037 ms   SCAN order_line
+
+== + ix_orders_ordered_on
+  dashboard              185.355 ms   SCAN ol / BLOOM FILTER ON o (order_id=?) / SEARCH o USING INTEGER PRIMARY KEY (rowid=?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?) / SEARCH p USING INTEGER PRIMARY KEY (rowid=?) / USE TEMP B-TREE FOR GROUP BY / USE TEMP B-TREE FOR count(DISTINCT) / USE TEMP B-TREE FOR ORDER BY
+  single day               0.241 ms   SEARCH o USING INDEX ix_orders_ordered_on (ordered_on=?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  single day, date()       8.889 ms   SCAN o / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  one product             14.324 ms   SCAN order_line
+
+== + ix_orderline_order
+  dashboard             1657.871 ms   SEARCH o USING INDEX ix_orders_ordered_on (ordered_on>? AND ordered_on<?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?) / SEARCH ol USING INDEX ix_orderline_order (order_id=?) / SEARCH p USING INTEGER PRIMARY KEY (rowid=?) / USE TEMP B-TREE FOR GROUP BY / USE TEMP B-TREE FOR count(DISTINCT) / USE TEMP B-TREE FOR ORDER BY
+  single day               0.302 ms   SEARCH o USING INDEX ix_orders_ordered_on (ordered_on=?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  single day, date()       9.046 ms   SCAN o / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  one product             14.737 ms   SCAN order_line
+
+== + ix_orderline_product
+  dashboard             1653.649 ms   SEARCH o USING INDEX ix_orders_ordered_on (ordered_on>? AND ordered_on<?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?) / SEARCH ol USING INDEX ix_orderline_order (order_id=?) / SEARCH p USING INTEGER PRIMARY KEY (rowid=?) / USE TEMP B-TREE FOR GROUP BY / USE TEMP B-TREE FOR count(DISTINCT) / USE TEMP B-TREE FOR ORDER BY
+  single day               0.235 ms   SEARCH o USING INDEX ix_orders_ordered_on (ordered_on=?) / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  single day, date()       8.945 ms   SCAN o / SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+  one product              2.536 ms   SEARCH order_line USING INDEX ix_orderline_product (product_id=?)
+
+| query | no index | + ix_orders_ordered_on | + ix_orderline_order | + ix_orderline_product |
+|---|---:|---:|---:|---:|
+| dashboard | 181.713 | 185.355 | 1657.871 | 1653.649 |
+| single day | 4.279 | 0.241 | 0.302 | 0.235 |
+| single day, date() | 9.041 | 8.889 | 9.046 | 8.945 |
+| one product | 15.037 | 14.324 | 14.737 | 2.536 |
