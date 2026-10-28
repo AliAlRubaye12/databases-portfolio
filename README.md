@@ -27,6 +27,8 @@ My personal profile and expectations are [here](Module01/README.md#task-personal
   [Reflection 1](Reflections/ref01.md)
 - [Module 2: Data Contracts & Reading Legacy Schemas](Module02/README.md),
   [Reflection 2](Reflections/ref02.md)
+- [Module 3: LLM-Assisted SQL & Query Profiling](Module03/README.md),
+  [Reflection 3](Reflections/ref03.md)
 - ...
 
 ## Running the code
