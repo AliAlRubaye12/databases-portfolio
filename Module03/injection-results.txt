@@ -1,0 +1,6 @@
+﻿normal   : [(1, 'Customer 1')]
+apostrophe: crashed with near "Brien": syntax error
+injected : [(1, 'Customer 1'), (2, 'Customer 2'), (3, 'Customer 3')] ...
+           rows returned: 2000
+safe     : []
+safe     : []
