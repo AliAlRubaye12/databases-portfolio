@@ -12,9 +12,14 @@ Back to [Module 2](README.md#task-a).
 | [SQLite: Foreign Key Support](https://sqlite.org/foreignkeys.html) | Foreign keys are off by default for backwards compatibility and must be switched on **per connection**; an index on the child column avoids full scans. |
 | [Mermaid: Entity Relationship Diagrams](https://mermaid.js.org/syntax/entityRelationshipDiagram.html) | The cardinality markers (`\|\|`, `\|o`, `}o`, `}\|`) and the difference between an identifying (`--`) and a non-identifying (`..`) relationship. |
 
-## Things I googled
+## Things I looked up
 
-- <term / question> — <what I found> — <URL>
+Looked up on the web together with Claude (pages read directly, not through a search engine):
+
+- **What do the Mermaid ER symbols mean?** — `||` exactly one, `|o` zero or one, `}o` zero or more, `}|` one or more; `--` solid line = identifying, `..` dashed = non-identifying — [mermaid.js.org](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
+- **Chen vs. crow's-foot notation** — Chen draws relationships as diamonds that can have attributes; crow's foot draws lines, so a relationship with attributes becomes its own entity — [Wikipedia](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model)
+- **Why are SQLite foreign keys off?** — for backwards compatibility with old databases; turn them on with `PRAGMA foreign_keys = ON`, once per connection — [sqlite.org](https://sqlite.org/foreignkeys.html)
+- **Should a surrogate key replace the natural key?** — no, keep the natural key as `UNIQUE`, or the same thing can be saved twice — [Wikipedia](https://en.wikipedia.org/wiki/Surrogate_key)
 
 ## Remarkable things
 
@@ -185,7 +190,15 @@ We picked it because it is the relationship old databases forget: they hide it i
 
 ![Discord post with the work order / part junction table diagram](pictures/discord-post.png)
 
-<!-- Task C: after talking with the neighbouring pod, add the 3–5 points you agreed on
-     and any disagreement you left open. -->
+**Our proposed points** — what we bring to the pairing. After talking with the neighbouring pod,
+mark each one ✅ agreed or ❓ disagreed, and add anything they taught us.
 
-- _(to add after the pod pairing)_
+1. **A key that is not `UNIQUE` is not a key.** `part_no` looked like a key, but `P-1003` was saved twice.
+2. **Count, don't guess.** `COUNT(*)` vs `COUNT(DISTINCT …)` on both sides of a relationship shows if it is 1:1, 1:n, or m:n.
+3. **A list in one column hides an m:n relationship.** `'P-1001,P-1002'` breaks 1NF; a junction table with the pair as key fixes it.
+4. **If a relationship needs its own data (date, parts), it becomes an entity.** That is why a maintenance job gets its own table.
+5. **SQLite only checks foreign keys after `PRAGMA foreign_keys = ON`.** Declaring them is not enough.
+
+From the other pod: _(add here)_
+
+Left open / disagreed: _(add here)_

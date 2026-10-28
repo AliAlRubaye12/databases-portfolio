@@ -47,7 +47,7 @@ Write the **requirements the schema forgot**: the business rules nobody encoded.
 
 See [study-log.md](study-log.md): the four Task B sketches with a `CREATE TABLE` + `COUNT` proof,
 LLM answers each verified against `legacy.db`, and remarkable findings.
-_(Still to add: what I googled, and the agreed learning and Discord image from the pod pairing.)_
+_(Still to add: the other pod's feedback on our proposed points, after the pod pairing.)_
 
 <a id="task-1"></a>
 ## Task 1 — Reconstruct the ER model
