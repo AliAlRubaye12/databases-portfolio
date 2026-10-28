@@ -180,7 +180,12 @@ Script: [`cardinality-proof.sql`](cardinality-proof.sql) · output: [`cardinalit
 
 ## Agreed learning (pod discussion)
 
-<!-- Task C: with a neighbouring pod — the 3–5 points you agreed on, any open disagreement,
-     and a link to or copy of the one image your pod pair posted in Discord. -->
+**Image posted in our class Discord (2026-10-28):** the m:n junction table from [sketch 3](#3-mn--work-orders-and-parts).
+We picked it because it is the relationship old databases forget: they hide it in a text list like `'P-1001,P-1002'`.
 
--
+![Discord post with the work order / part junction table diagram](pictures/discord-post.png)
+
+<!-- Task C: after talking with the neighbouring pod, add the 3–5 points you agreed on
+     and any disagreement you left open. -->
+
+- _(to add after the pod pairing)_
