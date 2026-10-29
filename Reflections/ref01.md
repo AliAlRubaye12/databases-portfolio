@@ -33,8 +33,7 @@ Also: pasting many lines into the `sqlite3` shell can break, so I put my command
 
 **Who did you work with, what did you learn from them, and what did you give back?**
 
-I added the instructor (ulno) as a collaborator on my portfolio.
-<add your pod mates here, and one thing you learned from them>
+I added the instructor (ulno) as a collaborator on my portfolio. Sandali helped me with installing Zed and programming. 
 
 ## How did you verify AI suggestions?
 
@@ -47,4 +46,4 @@ With the full night, a different machine came out on top. So: a query that runs 
 ## Help and extra work
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
-The Team, Sandali and felix 
+we worked in a team and helped each other with whatever we found ourself weak in. 
