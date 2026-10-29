@@ -13,7 +13,7 @@ A small app does not need a server.
 **Which measurement, circuit, or explanation worked well — and why?**
 
 Measuring instead of believing. The file size, the row count, and the `.timer` numbers proved the "no server needed" idea better than any slide.
-Playing SQL Island was also a good start — I finished the whole game, and it made `SELECT`, `WHERE`, and `UPDATE` feel normal.
+Playing SQL Island was also a good start I finished the whole game, and it made `SELECT`, `WHERE`, and `UPDATE` feel normal.
 
 ## What was difficult?
 
@@ -40,13 +40,11 @@ I added the instructor (ulno) as a collaborator on my portfolio.
 
 **What did you ask an AI, and how did you check the answer against a datasheet, a measurement, a packet capture, or a live test? Where was it wrong?**
 
-I asked Claude for a query: the average spindle load per machine "overnight".
+I asked Sandali for a query: the average spindle load per machine "overnight".
 The query ran, but it only looked at 18:00 to midnight and missed the hours after midnight. I found this by counting the rows each filter keeps.
 With the full night, a different machine came out on top. So: a query that runs is not automatically right.
 
 ## Help and extra work
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
-
-Claude helped me install the tools, set up the repository, and run the labs — very useful, but I had to check its work.
-Extra: I wrote down the Python 3.15 problem and its fix, so pod mates with the same error can solve it quickly.
+The Team, Sandali and felix 
