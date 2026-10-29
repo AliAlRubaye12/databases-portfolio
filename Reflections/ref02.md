@@ -6,7 +6,7 @@ Module: [Module 2 — Data Contracts & Legacy Schemas](../Module02/README.md)
 
 **What do you want to remember? What would be your advice to your past self?**
 
-An old database can look fine and still be full of mistakes. Don't guess — run a query and count.
+An old database can look fine and still be full of mistakes. Don't guess  run a query and count.
 Advice to my past self: before trusting a table, check `COUNT(*)` against `COUNT(DISTINCT …)` to see if a "key" is really unique.
 
 ## What was good?
@@ -21,7 +21,7 @@ Drawing the ER diagrams in Mermaid also worked well, because GitHub shows them a
 
 **Where did you struggle? What was the root cause?**
 
-Deciding what is an entity and what is only an attribute or a relationship — for example, why a maintenance job needs its own table.
+Deciding what is an entity and what is only an attribute or a relationship for example, why a maintenance job needs its own table.
 The root cause: these are new words, and the answer depends on what the business needs to store, not on one fixed rule.
 
 ## Exploration and show stoppers
@@ -50,5 +50,5 @@ Checking also showed that SQLite does not turn on foreign keys by default (`PRAG
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
 
-Claude helped me set up the files and run the queries — useful, but I had to check its answers.
+Sandali helped me set up the files and run the queries — useful, but I had to check its answers.
 Extra work: a script that tests every old row against the new contract, and the find about the missing `machine_name`.
