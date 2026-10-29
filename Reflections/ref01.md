@@ -6,8 +6,7 @@ Module: [Module 1 — Introduction and Local-First](../Module01/README.md)
 
 **What do you want to remember? What would be your advice to your past self?**
 
-A small app does not need a server. One SQLite file held 172,800 readings in 10 MB, and every question took about 0.1 seconds.
-Advice to my past self: pin the Python version from the start — the newest version is not always the best one.
+A small app does not need a server. 
 
 ## What was good?
 
