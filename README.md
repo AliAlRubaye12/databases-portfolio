@@ -10,8 +10,8 @@ Course workbook: [hsbi-databases-10d](https://github.com/iotempire/iotempire-tea
 Author: Ali Al Rubaye ([@AliAlRubaye12](https://github.com/AliAlRubaye12))
 
 My Task Pod:
-- <pod mate 1>, [portfolio link](https://github.com/USERNAME/databases-portfolio)
-- <pod mate 2>, [portfolio link](https://github.com/USERNAME/databases-portfolio)
+- <Sandali>, [portfolio link]([https://github.com/USERNAME/databases-portfolio](https://github.com/SANDYstm/databases-portfolio))
+- <Felix>, [portfolio link](https://github.com/USERNAME/databases-portfolio)
 
 Our Project Team (two pods merged) for the final project:
 - <name>, [portfolio link](https://github.com/USERNAME/databases-portfolio)
