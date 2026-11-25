@@ -29,12 +29,13 @@ and jumping through an index 40,575 times is slower than reading the table once 
 
 `LIKE 'Bei%'` does not use the index, but `GLOB 'Bei*'` does — because `LIKE` ignores upper/lower case.
 Also: SQLite allows a `SELECT` alias in `WHERE`, but PostgreSQL does not. Good question for `#sql-questions`.
+In the stretcher task, the same report took 10 ms as `GROUP BY` and 8 seconds as a correlated subquery — until one index made the subquery the fastest of all (3.6 ms).
 
 ## Interaction with peers and instructors
 
 **Who did you work with, what did you learn from them, and what did you give back?**
 
-<add your pod mates and the neighbouring pod from Task C here>
+My pod: Sandali and Felix. <add what you did together in Module 3, and what the neighbouring pod from Task C showed you>
 
 ## How did you verify AI suggestions?
 

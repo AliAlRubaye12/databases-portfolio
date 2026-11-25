@@ -80,6 +80,8 @@ So "it runs in SQLite" does not mean "it is portable SQL" — worth knowing when
 | `BLOOM FILTER ON o` appeared in the dashboard plan after adding the date index — a plan line the workbook never mentions. | [bench-results.txt](bench-results.txt) |
 | `WITH RECURSIVE` makes 240,000 rows out of nothing: one row, then "plus one" until the limit. | [setup.sql](setup.sql) |
 | `LIKE 'Bei%'` cannot use a normal index, but `GLOB 'Bei*'` can. | [safari-results.txt](safari-results.txt) |
+| A correlated subquery in a derived table, filtered outside (`WHERE late_orders > 0`), shows up **twice** in the plan — SQLite copies it into the outer filter. 8.2 s without an index, 3.6 ms with one. | [task5-results.txt](task5-results.txt) |
+| Every customer with a late order has exactly 30 — `ORDER BY late_orders DESC` sorts 400 ties. | [task5-results.txt](task5-results.txt) |
 | The `sqlite3` shell (3.53.4) and Python's built-in `sqlite3` (3.53.1) are different versions on the same laptop — plans could differ between them. | `sqlite3 --version`, [uv-check](../Module01/README.md#task-3) |
 
 ## Task C — with a neighbouring pod

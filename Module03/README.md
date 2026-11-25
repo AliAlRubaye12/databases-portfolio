@@ -10,7 +10,7 @@ back to [my portfolio](../README.md) · previous: [Module 2](../Module02/README.
 
 Build complex **DQL** queries: joins, aggregation with `GROUP BY`/`HAVING`, subqueries, and window functions.
 
-**Evidence:** [Task 1 — dashboard query](#task-1), [clause order tests](sql-notes.md#clause-order)
+**Evidence:** [Task 1 — dashboard query](#task-1), [clause order tests](sql-notes.md#clause-order), [Task 5 — subquery and window function](#task-5)
 
 <a id="lg2"></a>
 ### LG2 — `plans`
@@ -45,7 +45,9 @@ Generate a query with an **LLM**, then **verify** it: correctness, performance, 
 **Proves:** [LG2](#lg2)
 
 See [sql-notes.md](sql-notes.md): the plan safari with predictions next to the real plans, the algebra check,
-verified LLM answers, and the curiosities collection. _(Task C — comparing plans with another pod — still to do.)_
+verified LLM answers, and the curiosities collection.
+
+**Task C — with a neighbouring pod:** _(still to do in class)_ — compare one plan with them (check `sqlite3 --version` first: mine is 3.53.4 in the shell, 3.53.1 in Python), name the plan that surprised each pod most, and swap curiosities. Bring: the `LIKE 'Bei%'` scan, the 9× slower dashboard after `ix_orderline_order`, and the correlated subquery that runs twice.
 
 ## Setup
 
@@ -195,6 +197,51 @@ The dashboard query from Task 1:
 
 The plan matches the algebra: the engine evaluates the joins first (`SCAN ol` + three `SEARCH`es), then the grouping and distinct count (temp B-trees), and sorts last.
 τ is not part of classic relational algebra (relations are sets and have no order) — it is an extension for `ORDER BY`.
+
+<a id="task-5"></a>
+## Task 5 (stretcher) — Window functions and a subquery rewrite
+
+**Proves:** [LG1](#lg1), [LG2](#lg2)
+
+The report "late orders per customer", written three ways — [`task5.py`](task5.py) checks that every version gives the same answer, then compares plans and timings (median of 5; output in [`task5-results.txt`](task5-results.txt)).
+
+| version | rows | same answer? | time | plan, in short |
+|---|---:|---|---:|---|
+| `GROUP BY` (workbook) | 400 | ✅ | 10.5 ms | `SCAN o`, `SEARCH c`, temp B-trees for group and order |
+| correlated subquery | 400 | ✅ | **8,203.7 ms** | `SCAN c`, then `CORRELATED SCALAR SUBQUERY` → `SCAN o` — **twice** |
+| window `COUNT(*) OVER (PARTITION BY …)` + `DISTINCT` | 400 | ✅ | 23.9 ms | two co-routines, an extra temp B-tree for `DISTINCT` |
+| window, `DISTINCT` forgotten | **12,000** | ❌ | 36.7 ms | one row per *order*, not per customer |
+| correlated subquery **+ index** on `orders(customer_id, status)` | 400 | ✅ | **3.6 ms** | `SEARCH o USING COVERING INDEX` — twice, but each is tiny |
+
+```sql
+-- correlated subquery
+SELECT customer_id, name, late_orders FROM (
+    SELECT c.customer_id, c.name,
+           (SELECT COUNT(*) FROM orders o
+            WHERE o.customer_id = c.customer_id AND o.status = 'late') AS late_orders
+    FROM customer c)
+WHERE late_orders > 0
+ORDER BY late_orders DESC;
+
+-- window function
+SELECT DISTINCT c.customer_id, c.name,
+       COUNT(*) OVER (PARTITION BY c.customer_id) AS late_orders
+FROM orders o
+JOIN customer c ON c.customer_id = o.customer_id
+WHERE o.status = 'late'
+ORDER BY late_orders DESC;
+```
+
+**What the plans show:**
+- **The correlated subquery runs twice per customer.** SQLite flattens the outer `SELECT … WHERE late_orders > 0` by copying the subquery into the `WHERE` as well — the plan lists `CORRELATED SCALAR SUBQUERY 1` two times. Without an index, that is 2,000 customers × 2 × a scan of 60,000 orders: **8.2 seconds**.
+- **The right index turns the slowest version into the fastest** — 8,204 ms → 3.6 ms (≈2,300×), because each subquery becomes a covering-index lookup. Same query, different plan. (The index was dropped again so the Task 2 benchmark stays reproducible.)
+- **The window function is the clearest to read but not free:** it computes the count on every one of the 12,000 late orders, then needs `DISTINCT` to fold them back into 400 rows. Forget the `DISTINCT` and the query still runs — with 12,000 rows.
+
+**Readability:** `GROUP BY` is the shortest and says exactly what it means. The window function is the one to use when you need the count *next to* each order (for example "this order, and how many late orders its customer has") — that is where `GROUP BY` cannot help. The correlated subquery reads naturally ("for each customer, count…") but is only safe with an index behind it.
+
+**Which version the LLM produced by default:** asked for this report without any hint, the AI assistant wrote the `GROUP BY` version — the same as the workbook's.
+
+**The report itself is suspicious:** all 400 customers with late orders have **exactly 30** each (and 1,600 have none) — the generator's `x % 5` and `x % 2000` line up. `ORDER BY late_orders DESC` therefore orders 400 ties: the "top customers" list is arbitrary.
 
 ## Reflection 3
 
