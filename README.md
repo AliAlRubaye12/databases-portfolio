@@ -33,6 +33,8 @@ My personal profile and expectations are [here](Module01/README.md#task-personal
   [Reflection 4](Reflections/ref04.md)
 - [Module 5: Normalization vs. Denormalization](Module05/README.md),
   [Reflection 5](Reflections/ref05.md)
+- [Module 6a: The Analytical Engine (DuckDB)](Module06a/README.md),
+  [Reflection 6a](Reflections/ref06a.md)
 - ...
 
 ## Running the code
