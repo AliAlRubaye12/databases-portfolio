@@ -1,0 +1,10 @@
+﻿SQLite 3.53.1 on history.db vs DuckDB 2.0.0 on Parquet; warm-up + median of 5 interleaved runs
+
+dashboard              sqlite  3177.7 ms [3102.6-3425.9]   duckdb   21.3 ms [20.7-29.0]    149.4x   rows 350/350   same answer: True
+monthly (workbook SQL) sqlite  2601.1 ms [2567.3-2710.3]   duckdb   59.4 ms [57.1-65.4]     43.8x   rows 50/1500   same answer: False
+monthly (fixed SQLite) sqlite  3830.6 ms [3756.5-5733.3]   duckdb   62.7 ms [59.3-67.1]     61.1x   rows 1500/1500   same answer: True
+monthly (date_trunc)   sqlite  3721.3 ms [3585.8-3937.8]   duckdb   83.2 ms [77.4-121.6]     44.8x   rows 1500/1500   same answer: True
+one day, no index      sqlite   274.8 ms [266.6-284.5]   duckdb    8.3 ms [7.8-8.6]     33.1x   rows 5/5   same answer: True
+
++ CREATE INDEX ix_history_done_on   (SQLite plan: SEARCH report_history USING INDEX ix_history_done_on (done_on=?) / USE TEMP B-TREE FOR GROUP BY)
+one day, with index    sqlite     6.4 ms [5.9-7.0]   duckdb    8.9 ms [7.8-9.7]      0.7x   rows 5/5   same answer: True
