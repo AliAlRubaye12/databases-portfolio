@@ -1,0 +1,4 @@
+﻿DuckDB 2.0.0, in memory; warm cache; median of 5 runs
+  A: 350 rows, total 722610.0   B: 350 rows, total 722610.0
+  A (normalized, 4-way join)      16.2 ms
+  B (report_jobpart, 1 table)      9.7 ms
