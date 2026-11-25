@@ -1,0 +1,16 @@
+﻿== candidate FDs: max number of Y values per X, in the 5 rows and in the 200,000 rows
+                 fd                    in_5_rows  in_200k
+-------------------------------------  ---------  -------
+job_id -> machine_id                           1        1
+job_id -> technician                           1        1
+machine_id -> site                             1        1
+part_no -> part_price                          1        1
+technician -> machine_id  (accident?)          1       50
+part_price -> part_no  (accident?)             1        1
+{} -> site  (accident?)                        1        2
+job_id -> part_no  (should fail)               2       10
+
+== candidate key (job_id, part_no): unique in both tables?
+unique_in_5_rows  unique_in_200k
+----------------  --------------
+               1               1

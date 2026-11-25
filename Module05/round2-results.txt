@@ -1,0 +1,19 @@
+﻿== 1. UPDATE anomaly: move cnc-01 to Bielefeld
+rows_touched
+------------
+           3
+-- a second session that only fixes the row it is looking at leaves the fact split:
+machine_id       sites_now
+----------  -------------------
+cnc-01      Bielefeld,Gütersloh
+
+== 2. INSERT anomaly: a new part P-0004 that no job has used yet
+job_id  machine_id  site  technician  part_no  part_price
+------  ----------  ----  ----------  -------  ----------
+                                      P-0004         9.25
+-- the part exists only as a half-empty fake job row with job_id NULL
+
+== 3. DELETE anomaly: delete job 1, the last job that used P-0002
+rows_still_knowing_price_of_P_0002
+----------------------------------
+                                 0
