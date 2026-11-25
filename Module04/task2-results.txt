@@ -1,0 +1,26 @@
+﻿== before the replay
+sensor_id          ts           value
+---------  -------------------  -----
+        1  2026-03-01 08:00:00   41.5
+
+== after the replay: still exactly one row for that key, with the corrected value
+sensor_id          ts           value
+---------  -------------------  -----
+        1  2026-03-01 08:00:00   41.7
+
+== without ON CONFLICT the same replay is simply rejected:
+Error near line 24 of Module04/task2.sql: UNIQUE constraint failed: reading.sensor_id, reading.ts
+== ingest.py, run 1
+10 CSV rows -> reading table 1 -> 9 rows
+== ingest.py, run 2 (same file)
+10 CSV rows -> reading table 9 -> 9 rows
+== rows per (sensor_id, ts) - any duplicates?
+rows  distinct_keys
+----  -------------
+   9              9
+sensor_id          ts           value
+---------  -------------------  -----
+        1  2026-03-01 08:01:01  41.95
+        1  2026-03-01 08:01:02   42.1
+        2  2026-03-01 08:01:01    1.3
+        2  2026-03-01 08:01:02   1.15
