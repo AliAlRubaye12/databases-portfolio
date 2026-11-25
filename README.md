@@ -31,6 +31,8 @@ My personal profile and expectations are [here](Module01/README.md#task-personal
   [Reflection 3](Reflections/ref03.md)
 - [Module 4: Data Integrity, Constraints & Edge Triggers](Module04/README.md),
   [Reflection 4](Reflections/ref04.md)
+- [Module 5: Normalization vs. Denormalization](Module05/README.md),
+  [Reflection 5](Reflections/ref05.md)
 - ...
 
 ## Running the code
