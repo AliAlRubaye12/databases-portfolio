@@ -1,0 +1,4 @@
+﻿SQLite 3.53.1: 10,000 inserts in one transaction, median of 5 runs
+  without trigger          21.2 ms   alarms written: 0
+  with alarm trigger       34.7 ms   alarms written: 1439
+  trigger cost: +13.5 ms (+64%), 1.35 µs per row

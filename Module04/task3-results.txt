@@ -1,0 +1,18 @@
+﻿== alarm
+alarm_id  sensor_id          ts           value          reason
+--------  ---------  -------------------  -----  -----------------------
+       1          2  2026-03-01 09:00:00    2.7  vibration over 2.0 mm/s
+
+== audit (one row per updated reading of sensor 2)
+audit_id  reading_id  old_value  new_value      changed_at
+--------  ----------  ---------  ---------  -------------------
+       1           5        1.2        1.4  2026-11-25 16:38:07
+       2           6        1.3        1.4  2026-11-25 16:38:07
+       3           7       1.15        1.4  2026-11-25 16:38:07
+       4           9        1.4        1.4  2026-11-25 16:38:07
+       5          10        2.7        1.4  2026-11-25 16:38:07
+
+== a temperature of 2.7 does NOT raise a vibration alarm (the WHEN checks the metric)
+alarms
+------
+     1
