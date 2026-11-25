@@ -66,7 +66,7 @@ My answers from the "Who are U?" round:
 
 ## My Task Pod
 
-- Sandali, [portfolio](https://github.com/SANDYstm/databases-portfolio)
+- Sandali, [portfolio](https://github.com/SANDYstm/databases-portfolio-1)
 - Felix, _(portfolio link to add)_
 
 Links: [syllabus](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-databases-10d/syllabus.md) · [this module in the workbook](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-databases-10d/modules/01-introduction-and-local-first.md) · [my reflection](../Reflections/ref01.md)
