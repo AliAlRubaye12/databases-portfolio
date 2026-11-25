@@ -1,0 +1,5 @@
+﻿history rows: 2000000
+date range  : 2026-01-01 2028-06-27
+sum price   : 21000000.0
+csv bytes   : 10801002
+db bytes    : 112648192
