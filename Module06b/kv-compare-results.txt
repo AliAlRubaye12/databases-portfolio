@@ -1,0 +1,3 @@
+﻿shelve  set=  12.714s get=   0.233s
+sqlite  set=   0.070s get=   1.571s
+sqlite  sessions per filter (11.6 ms): [('filter=city:0', 5000), ('filter=city:1', 5000), ('filter=city:2', 5000), ('filter=city:3', 5000)]
