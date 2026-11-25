@@ -1,0 +1,4 @@
+﻿1,000 single-row statements, median of 5 runs
+  inserts (one by one ) sqlite      2.2 ms | duckdb   1037.9 ms |    479x
+  lookups (by id)        sqlite      2.7 ms | duckdb    709.7 ms |    265x
+  inserts (executemany) sqlite      1.0 ms | duckdb    521.5 ms |    502x

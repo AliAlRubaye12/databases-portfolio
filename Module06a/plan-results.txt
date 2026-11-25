@@ -1,0 +1,44 @@
+﻿===== DuckDB EXPLAIN ANALYZE — 4 columns
+╭─ Summary ───────────╮
+│ Total Time: 0.0300s │
+│ Data Read: 185.6 kB │
+╰─────────────────────╯
+╭─ Hash Group By ──────────────────────────────────────────────────────────────────╮
+│ Groups: #0, #1, #2                                                               │
+│ Aggregates: sum(#3)                                                              │
+│ 350 rows                                                                  90.0ms │
+╰─────────────────────────────────────────┒┎───────────────────────────────────────╯
+╭─ Projection ────────────────────────────┚┖───────────────────────────────────────╮
+│ Projections: machine_id, site, technician, part_price                            │
+│ 2,000,000 rows                                                               0µs │
+╰─────────────────────────────────────────┒┎───────────────────────────────────────╯
+╭─ Table Scan ────────────────────────────┚┖───────────────────────────────────────╮
+│ Function: READ_PARQUET                                                           │
+│ Projections: machine_id, site, technician, part_price                            │
+│ Total Files Read: 1                                                              │
+│ Filename(s):                                                                     │
+│ C:/Users/ali/Downloads/zash/databases-portfolio/Module06a/report_history.parquet │
+│ Row Groups Scanned: 17 / 17                                                      │
+│ 2,000,000 rows                                                            30.0ms │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+
+
+===== DuckDB EXPLAIN ANALYZE — SELECT * (all 7 columns)
+╭─ Summary ───────────╮
+│ Total Time: 0.0144s │
+│ Data Read:   2.1 MB │
+╰─────────────────────╯
+╭─ Table Scan ─────────────────────────────────────────────────────────────────────╮
+│ Function: READ_PARQUET                                                           │
+│ Projections: job_id, machine_id, site, technician, part_no, part_price, done_on  │
+│ Total Files Read: 1                                                              │
+│ Filename(s):                                                                     │
+│ C:/Users/ali/Downloads/zash/databases-portfolio/Module06a/report_history.parquet │
+│ Row Groups Scanned: 17 / 17                                                      │
+│ 2,000,000 rows                                                            50.0ms │
+╰──────────────────────────────────────────────────────────────────────────────────╯
+
+
+===== SQLite EXPLAIN QUERY PLAN — dashboard
+   SEARCH report_history USING INDEX ix_history_done_on (done_on>?)
+   USE TEMP B-TREE FOR GROUP BY
