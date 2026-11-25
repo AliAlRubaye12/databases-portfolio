@@ -1,0 +1,23 @@
+﻿== 1. a view exposes a safe subset to report readers
+machine_id  metric   peak  n
+----------  -------  ----  -
+cnc-01      temp_c   42.1  6
+cnc-01      vib_rms   1.4  5
+
+== 2. read-only at the file level (Windows read-only attribute = chmod 444)
+IsReadOnly: True
+-- reading still works:
+11
+-- writing must fail:
+Error in 2nd command line argument: attempt to write a readonly database
+
+== 3. read-only at the connection level (file is writable again)
+11
+-- mode=ro: writing must fail:
+Error in 2nd command line argument: attempt to write a readonly database
+-- PRAGMA query_only: the connection refuses writes too:
+Error in 2nd command line argument: attempt to write a readonly database
+
+== 4. write access restored for further work
+IsReadOnly: False
+11
