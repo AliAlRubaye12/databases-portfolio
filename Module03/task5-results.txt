@@ -1,0 +1,45 @@
+﻿SQLite 3.53.1; median of 5 runs after one warm-up
+
+== GROUP BY (workbook): 400 rows, same answer as GROUP BY: True, 10.5 ms
+      SCAN o
+      SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+      USE TEMP B-TREE FOR GROUP BY
+      USE TEMP B-TREE FOR ORDER BY
+== correlated subquery: 400 rows, same answer as GROUP BY: True, 8203.7 ms
+      SCAN c
+      CORRELATED SCALAR SUBQUERY 1
+      SCAN o
+      CORRELATED SCALAR SUBQUERY 1
+      SCAN o
+      USE TEMP B-TREE FOR ORDER BY
+== window function: 400 rows, same answer as GROUP BY: True, 23.9 ms
+      CO-ROUTINE (subquery-2)
+      CO-ROUTINE (subquery-3)
+      SCAN o
+      SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+      USE TEMP B-TREE FOR ORDER BY
+      SCAN (subquery-3)
+      SCAN (subquery-2)
+      USE TEMP B-TREE FOR DISTINCT
+      USE TEMP B-TREE FOR ORDER BY
+== window, DISTINCT forgotten: 12000 rows, same answer as GROUP BY: False, 36.7 ms
+      CO-ROUTINE (subquery-2)
+      CO-ROUTINE (subquery-3)
+      SCAN o
+      SEARCH c USING INTEGER PRIMARY KEY (rowid=?)
+      USE TEMP B-TREE FOR ORDER BY
+      SCAN (subquery-3)
+      SCAN (subquery-2)
+      USE TEMP B-TREE FOR ORDER BY
+
+== the ranking itself: how many customers share the top count?
+   [(30, 400)]
+== customers with no late order at all: 1600
+
+== correlated subquery + index on orders(customer_id, status): 3.6 ms
+      SCAN c
+      CORRELATED SCALAR SUBQUERY 1
+      SEARCH o USING COVERING INDEX ix_tmp_orders_customer (customer_id=? AND status=?)
+      CORRELATED SCALAR SUBQUERY 1
+      SEARCH o USING COVERING INDEX ix_tmp_orders_customer (customer_id=? AND status=?)
+      USE TEMP B-TREE FOR ORDER BY
