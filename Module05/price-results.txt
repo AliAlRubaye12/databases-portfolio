@@ -1,0 +1,30 @@
+﻿== change one machine's site: 3NF (machine)
+Run Time: real 0.004446 user 0.000000 sys 0.000000
+rows_touched_3nf
+----------------
+               1
+
+== the same fact in the report table
+Run Time: real 0.042040 user 0.015625 sys 0.000000
+rows_touched_report
+-------------------
+               4000
+
+== forget the report table, and the two designs disagree:
+site_in_3nf  site_in_report_wide
+-----------  -------------------
+Bielefeld    Gütersloh
+
+== storage (dbstat: bytes of pages per object, indexes included)
+                   design                      bytes
+--------------------------------------------  -------
+normalized (job + job_part + part + machine)  8167424
+                     design                         bytes
+-------------------------------------------------  --------
+denormalized (report_jobpart + ix_report_machine)  14082048
+         design            bytes
+------------------------  --------
+denormalized, table only  11091968
+                    design                       bytes
+----------------------------------------------  --------
+flat_jobpart (the original, + ix_flat_machine)  14880768
