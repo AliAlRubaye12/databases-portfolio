@@ -1,0 +1,25 @@
+﻿== refresh.py --check, run 1
+rows 2,000,000  checksum SUM(part_price) 21000000.0  parquet 2.46 MB  elapsed 7,588 ms
+check: sqlite rows 2,000,000 sum 21000000.0 | parquet rows 2,000,000 sum 21000000.0
+check: OK
+exit status: 0
+== refresh.py --check, run 2 (idempotent?)
+rows 2,000,000  checksum SUM(part_price) 21000000.0  parquet 2.46 MB  elapsed 7,704 ms
+check: sqlite rows 2,000,000 sum 21000000.0 | parquet rows 2,000,000 sum 21000000.0
+check: OK
+exit status: 0
+== the copy goes stale: one price +1 in history.db after the refresh
+== refresh.py --check-only (compare without rebuilding)
+rows 2,000,000  checksum SUM(part_price) 21000000.0  parquet 2.46 MB  elapsed 43 ms
+check: sqlite rows 2,000,000 sum 21000001.0 | parquet rows 2,000,000 sum 21000000.0
+check: MISMATCH
+exit status: 1
+== what the check cannot see: a second price -1, so count and sum match again
+rows 2,000,000  checksum SUM(part_price) 21000000.0  parquet 2.46 MB  elapsed 44 ms
+check: sqlite rows 2,000,000 sum 21000000.0 | parquet rows 2,000,000 sum 21000000.0
+check: OK
+exit status: 0  <- OK, although two rows differ from the copy
+(both prices restored)
+rows 2,000,000  checksum SUM(part_price) 21000000.0  parquet 2.46 MB  elapsed 46 ms
+check: sqlite rows 2,000,000 sum 21000000.0 | parquet rows 2,000,000 sum 21000000.0
+check: OK

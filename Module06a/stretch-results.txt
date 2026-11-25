@@ -1,0 +1,9 @@
+﻿== S2: row-group statistics for done_on
+  unsorted 17 row groups; first three: 2026-01-01 .. 2028-06-27; 2026-01-01 .. 2028-06-27; 2026-01-01 .. 2028-06-27
+  sorted   17 row groups; first three: 2026-01-01 .. 2026-02-25; 2026-02-25 .. 2026-04-22; 2026-04-22 .. 2026-06-16
+  one-month query, unsorted   5.55 ms   Row Groups Scanned: 17 / 17
+  one-month query, sorted     3.24 ms   Row Groups Scanned: 2 / 17
+
+== S3: compression
+  snappy (default)  2.40 MB   dashboard   20.6 ms
+  zstd              1.41 MB   dashboard   19.2 ms
