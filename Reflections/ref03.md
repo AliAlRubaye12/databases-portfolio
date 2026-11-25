@@ -40,14 +40,14 @@ Also: SQLite allows a `SELECT` alias in `WHERE`, but PostgreSQL does not. Good q
 
 **What did you ask an AI, and how did you check the answer against a datasheet, a measurement, a packet capture, or a live test? Where was it wrong?**
 
-Claude wrote the dashboard query. I compared it with the reference query using `EXCEPT` — same result.
+An AI assistant wrote the dashboard query. I compared it with the reference query using `EXCEPT` — same result.
 But it used `strftime('%Y', …)`, which can never use an index on the date.
-Claude also suggested three indexes. I tested each one alone: one helped another query, one did nothing for the dashboard, and one made it 9× slower.
-And Claude's first guess for why revenue differs per city was wrong — a query showed the real reason (the quantity, not the price).
+The AI assistant also suggested three indexes. I tested each one alone: one helped another query, one did nothing for the dashboard, and one made it 9× slower.
+And the AI assistant's first guess for why revenue differs per city was wrong — a query showed the real reason (the quantity, not the price).
 
 ## Help and extra work
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
 
-Claude helped me write the scripts and run the tests — useful, but I checked every claim with a query.
+An AI assistant helped me write the scripts and run the tests — useful, but I checked every claim with a query.
 Extra: the `bench.py` script, so the whole benchmark runs again with one command.

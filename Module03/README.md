@@ -67,7 +67,7 @@ Two of the scaffolding questions, answered by running them:
 
 **Proves:** [LG1](#lg1), [LG2](#lg2), [LG4](#lg4)
 
-**Model:** Claude (Opus 5.5). **Prompt** (from the workbook):
+**Model:** an AI assistant (LLM). **Prompt** (from the workbook):
 
 > SQLite schema: `customer(customer_id, name, city)`, `product(product_id, sku, price)`, `orders(order_id, customer_id, ordered_on, status)`, `order_line(order_id, product_id, qty)`. Write a query that returns, for each city, the number of distinct customers and the total revenue (sum of `qty*price`) of orders placed in 2025, ordered by revenue descending.
 

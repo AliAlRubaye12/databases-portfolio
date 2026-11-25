@@ -66,8 +66,8 @@ My answers from the "Who are U?" round:
 
 ## My Task Pod
 
-- <Sandali>, [portfolio][(https://github.com/USERNAME/databases-portfolio)](https://github.com/SANDYstm/databases-portfolio)
-- <Felix>, [portfolio](https://github.com/USERNAME/databases-portfolio)
+- Sandali, [portfolio](https://github.com/SANDYstm/databases-portfolio)
+- Felix, _(portfolio link to add)_
 
 Links: [syllabus](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-databases-10d/syllabus.md) · [this module in the workbook](https://github.com/iotempire/iotempire-teaching/blob/main/full-classes/hsbi-databases-10d/modules/01-introduction-and-local-first.md) · [my reflection](../Reflections/ref01.md)
 
@@ -184,7 +184,7 @@ for 10 MB of data that fits on any USB stick. With SQLite it is one file on the 
 
 **Proves:** [LG6](#lg6)
 
-**Model:** Claude (Opus 5.5), used as the coding assistant for this portfolio.
+**Model:** an AI assistant (LLM), used as the coding assistant for this portfolio.
 
 **Prompt** (from the workbook):
 

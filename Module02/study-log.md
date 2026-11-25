@@ -14,7 +14,7 @@ Back to [Module 2](README.md#task-a).
 
 ## Things I looked up
 
-Looked up on the web together with Claude (pages read directly, not through a search engine):
+Looked up on the web together with an AI assistant (pages read directly, not through a search engine):
 
 - **What do the Mermaid ER symbols mean?** — `||` exactly one, `|o` zero or one, `}o` zero or more, `}|` one or more; `--` solid line = identifying, `..` dashed = non-identifying — [mermaid.js.org](https://mermaid.js.org/syntax/entityRelationshipDiagram.html)
 - **Chen vs. crow's-foot notation** — Chen draws relationships as diamonds that can have attributes; crow's foot draws lines, so a relationship with attributes becomes its own entity — [Wikipedia](https://en.wikipedia.org/wiki/Entity%E2%80%93relationship_model)
@@ -31,7 +31,7 @@ Looked up on the web together with Claude (pages read directly, not through a se
 
 ## LLM Q&A
 
-Model: Claude (Opus 5.5). Every answer was checked against `legacy.db` with [`llm-verify.sql`](llm-verify.sql) — output in [`llm-verify-results.txt`](llm-verify-results.txt) — or with the Task 1/2 queries.
+Model: an AI assistant (LLM). Every answer was checked against `legacy.db` with [`llm-verify.sql`](llm-verify.sql) — output in [`llm-verify-results.txt`](llm-verify-results.txt) — or with the Task 1/2 queries.
 
 | Prompt | Answer (summary) | How I verified it / where it was wrong |
 |---|---|---|

@@ -43,13 +43,13 @@ WHERE o.ordered_on = '2026-02-14';
 π order_id, ordered_on, name ( σ ordered_on = '2026-02-14' (orders) ⋈ customer_id customer )
 ```
 
-Written with Claude, then checked against the SQL and the plan:
+Written with an AI assistant, then checked against the SQL and the plan:
 - **σ pushed down onto `orders`** — the same thing the planner does: `SEARCH o USING INDEX ix_orders_ordered_on (ordered_on=?)` runs first, then customer is looked up per order.
 - **A real difference between the two:** relational algebra works with *sets* (no duplicate rows), SQL works with *bags* (duplicates stay unless you write `DISTINCT`). For this query it does not matter, because `order_id` is unique.
 
 ## LLM Q&A (verified by running it)
 
-Model: Claude (Opus 5.5).
+Model: an AI assistant (LLM).
 
 | question | answer (short) | how I verified it |
 |---|---|---|

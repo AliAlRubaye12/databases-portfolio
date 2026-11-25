@@ -39,7 +39,7 @@ I added the instructor (ulno) as a collaborator on my portfolio. Sandali helped 
 
 **What did you ask an AI, and how did you check the answer against a datasheet, a measurement, a packet capture, or a live test? Where was it wrong?**
 
-I asked Sandali for a query: the average spindle load per machine "overnight".
+I asked an AI assistant for a query: the average spindle load per machine "overnight".
 The query ran, but it only looked at 18:00 to midnight and missed the hours after midnight. I found this by counting the rows each filter keeps.
 With the full night, a different machine came out on top. So: a query that runs is not automatically right.
 
@@ -47,3 +47,4 @@ With the full night, a different machine came out on top. So: a query that runs 
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
 we worked in a team and helped each other with whatever we found ourself weak in. 
+An AI assistant helped me install the tools, set up the repository, and run the labs — useful, but I had to check its work.

@@ -42,7 +42,7 @@ The pairing with another pod (Task C) is still to do.
 
 **What did you ask an AI, and how did you check the answer against a datasheet, a measurement, a packet capture, or a live test? Where was it wrong?**
 
-I used Claude to help with the lab and to answer the study questions. I checked each answer with a query on `legacy.db`.
+I used an AI assistant to help with the lab and to answer the study questions. I checked each answer with a query on `legacy.db`.
 It was wrong once: it said job 4 went missing from a join, but job 4 has no parts, so that was expected.
 Checking also showed that SQLite does not turn on foreign keys by default (`PRAGMA foreign_keys` was `0`).
 
@@ -50,5 +50,5 @@ Checking also showed that SQLite does not turn on foreign keys by default (`PRAG
 
 **Who helped you, and was it valuable? Who did you help? Did you present, implement, make a PR, or fix something crucial for the class?**
 
-Sandali helped me set up the files and run the queries — useful, but I had to check its answers.
+An AI assistant helped me set up the files and run the queries — useful, but I had to check its answers.
 Extra work: a script that tests every old row against the new contract, and the find about the missing `machine_name`.
