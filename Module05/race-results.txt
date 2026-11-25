@@ -1,0 +1,36 @@
+﻿SQLite 3.53.1; warm cache; median of 5 alternating runs
+
+== Round 4: A (normalized, 4 tables) vs B (report_jobpart, 1 table, with ix_report_machine)
+  same answer: True  (350 rows, total cost 722610.0)
+  plan A:
+    SCAN jp
+    SEARCH j USING INTEGER PRIMARY KEY (rowid=?)
+    SEARCH m USING INDEX sqlite_autoindex_machine_1 (machine_id=?)
+    SEARCH p USING INDEX sqlite_autoindex_part_1 (part_no=?)
+    USE TEMP B-TREE FOR GROUP BY
+  plan B:
+    SCAN report_jobpart USING INDEX ix_report_machine
+    USE TEMP B-TREE FOR GROUP BY
+  A 120.1 ms   B 148.6 ms
+
+== Round 5 note: B again, after DROP INDEX ix_report_machine
+  plan B:
+    SCAN report_jobpart
+    USE TEMP B-TREE FOR GROUP BY
+  A 118.8 ms   B (no index) 108.3 ms
+  (index restored)
+
+== Optional: make the join hurt - six-way join vs report_wide
+  same answer: True  (3500 rows, total cost 722610.0; workbook says 3,500 rows and 722,610.0)
+  plan A6:
+    SCAN jp
+    SEARCH j USING INTEGER PRIMARY KEY (rowid=?)
+    SEARCH m USING INDEX sqlite_autoindex_machine_1 (machine_id=?)
+    SEARCH sd USING INDEX sqlite_autoindex_site_dim_1 (site=?)
+    SEARCH p USING INDEX sqlite_autoindex_part_1 (part_no=?)
+    SEARCH v USING INDEX sqlite_autoindex_vendor_1 (part_no=?)
+    USE TEMP B-TREE FOR GROUP BY
+  plan B6:
+    SCAN report_wide
+    USE TEMP B-TREE FOR GROUP BY
+  A6 232.8 ms   B6 177.3 ms
