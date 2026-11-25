@@ -1,0 +1,53 @@
+﻿== 1. UNCONSTRAINED: everything lands, nothing complains
+rowid  sensor_id  id_type  metric   value    value_type
+-----  ---------  -------  ------  --------  ----------
+    1          1  integer  temp_c    9000.0  real
+    2          1  integer  temp_c  hot       text
+    3          2  integer  bogus     -500.0  real
+    4             null                       null
+    5  abc        text     temp_c      20.0  real
+    6          1  integer  temp_c      41.5  real
+    7          1  integer  temp_c      41.5  real
+    8          1  integer  TEMP_C  1.0e+308  real
+    9        1.5  real              -273.16  real
+
+== 2. CONSTRAINED: the same inserts, one at a time
+-- (1,'temp_c',9000)
+-- (1,'temp_c','hot')
+sqlite3 : Error near line 28 of Module04/acceptance.sql: CHECK constraint failed: value BETWEEN -273.15 AND 5000
+At line:1 char:519
++ ... -portfolio; sqlite3 ":memory:" ".read Module04/acceptance.sql" 2>&1 | ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error near line...273.15 AND 5000:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Error near line 30 of Module04/acceptance.sql: cannot store TEXT value in REAL column c.value
+-- (2,'bogus',-500)
+-- (NULL,NULL,NULL)
+Error near line 32 of Module04/acceptance.sql: CHECK constraint failed: metric IN ('temp_c','vib_rms','spindle_load')
+Error near line 34 of Module04/acceptance.sql: NOT NULL constraint failed: c.sensor_id
+-- ('abc','temp_c',20)
+Error near line 36 of Module04/acceptance.sql: cannot store TEXT value in INTEGER column c.sensor_id
+-- (1,'temp_c',41.5) twice
+Error near line 39 of Module04/acceptance.sql: UNIQUE constraint failed: c.sensor_id, c.metric, c.value
+-- (1,'TEMP_C',1e308)
+Error near line 41 of Module04/acceptance.sql: CHECK constraint failed: metric IN ('temp_c','vib_rms','spindle_load')
+-- (1.5,'',-273.16)
+Error near line 43 of Module04/acceptance.sql: cannot store REAL value in INTEGER column c.sensor_id
+-- STRICT surprise: the text 20 into a REAL column
+-- ...and an integer 21 into the REAL column
+sensor_id  metric  value  value_type
+---------  ------  -----  ----------
+        1  temp_c   41.5  real
+        2  temp_c   20.0  real
+        3  temp_c   21.0  real
+
+== 3. CHECK and NULL: a CHECK that is NULL counts as passed
+null_rows_accepted
+------------------
+                 1
+
+== 4. plausible but wrong: a vibration of 4000 passes the temperature range
+sensor_id  metric   value
+---------  -------  ------
+        4  vib_rms  4000.0
