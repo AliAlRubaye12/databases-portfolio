@@ -1,0 +1,17 @@
+﻿== integrity check: the join must reproduce the row count of the flat table
+flat_rows  normalized_rows  machines  parts  jobs
+---------  ---------------  --------  -----  -----
+   200000           200000        50     10  20000
+
+== and the joined 3NF tables give back exactly the flat rows (both EXCEPTs empty = 0)
+lost_rows  invented_rows
+---------  -------------
+        0              0
+
+== why does part have 10 rows, not 40? (k only runs 1..10)
+first_part  last_part  parts
+----------  ---------  -----
+P-0002      P-0011        10
+
+== foreign keys were ON during the load; any violations?
+(no rows above = none)
