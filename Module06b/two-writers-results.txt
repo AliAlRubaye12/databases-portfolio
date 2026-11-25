@@ -1,0 +1,10 @@
+﻿== 1. two writers, one row
+  writer B: database is locked
+  reader while A holds the lock sees: 0  (A has not committed)
+  after A commits, B retries: counter = 2  (expected 2)
+
+== 2. the lost update: read in the app, write back read+1
+  both read 2/2, both wrote +1: counter 2 -> 3  (expected 4)
+
+== 3. the fix: let the database do the read-modify-write
+  counter 3 -> 5  (expected 5)
