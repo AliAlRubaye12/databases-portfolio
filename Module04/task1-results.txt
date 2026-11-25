@@ -1,0 +1,27 @@
+﻿== valid
+reading_id  sensor_id          ts           value  interval_s  energy_j
+----------  ---------  -------------------  -----  ----------  --------
+         1          1  2026-03-01 08:00:00   41.5           1      41.5
+
+== rejected: domain check (impossible temperature)
+sqlite3 : Error near line 15 of Module04/task1.sql: CHECK constraint failed: value >= -273.15 AND value <= 5000
+At line:1 char:666
++ ... == TASK 1"; sqlite3 Module04/edge.db ".read Module04/task1.sql" 2>&1  ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Error near line...D value <= 5000:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+== rejected: STRICT type (text into a REAL)
+== rejected: referential integrity (sensor 99 does not exist)
+Error near line 17 of Module04/task1.sql: cannot store TEXT value in REAL column reading.value
+Error near line 19 of Module04/task1.sql: FOREIGN KEY constraint failed
+== rejected: entity integrity (duplicate sensor for the same machine+metric)
+
+== the generated column computes on read: a 5-second reading
+Error near line 21 of Module04/task1.sql: UNIQUE constraint failed: sensor.machine_id, sensor.metric
+reading_id  value  interval_s  energy_j
+----------  -----  ----------  --------
+         1   41.5           1      41.5
+         2   42.0           5     210.0
+-- and it cannot be written directly:
+Parse error near line 28 of Module04/task1.sql: cannot INSERT into generated column "energy_j"

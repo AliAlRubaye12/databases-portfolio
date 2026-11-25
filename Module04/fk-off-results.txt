@@ -1,0 +1,8 @@
+﻿== foreign_keys on this connection:
+foreign_keys
+------------
+           0
+== the same orphan insert that Task 1 rejected - inside a transaction we roll back:
+reading_id  sensor_id          ts
+----------  ---------  -------------------
+         2         99  2026-03-01 08:00:03
